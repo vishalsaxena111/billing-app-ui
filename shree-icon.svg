@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shree Travel icon">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbd38d"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#g)"/>
+  <path d="M18 24h28v6H18zm0 14h20v6H18z" fill="#1f2437"/>
+  <path d="M42 38h4a6 6 0 0 0 0-12h-4v6h3a2 2 0 0 1 0 4h-3z" fill="#1f2437"/>
+</svg>
