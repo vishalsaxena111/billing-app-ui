@@ -1,0 +1,28 @@
+.stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 12px 32px rgba(8, 11, 24, 0.2);
+}
+
+.stat-label {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #f9f4ec;
+}
+
+.stat-helper {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}

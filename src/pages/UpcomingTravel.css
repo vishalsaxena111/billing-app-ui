@@ -1,0 +1,136 @@
+.upcoming-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.upcoming-header h1 {
+  margin-bottom: 0.4rem;
+}
+
+.upcoming-header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-panel,
+.list-panel {
+  background: rgba(12, 14, 26, 0.8);
+  border-radius: 20px;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.25);
+}
+
+.form-panel h2,
+.list-panel h2 {
+  margin-top: 0;
+}
+
+.entry-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.entry-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.entry-form input,
+.entry-form textarea {
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.entry-form input:focus,
+.entry-form textarea:focus {
+  outline: 2px solid rgba(251, 211, 141, 0.6);
+  border-color: transparent;
+}
+
+.entry-form button {
+  grid-column: 1 / -1;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: #fbd38d;
+  color: #1f2437;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.entry-form button:hover {
+  transform: translateY(-2px);
+}
+
+.notes {
+  grid-column: span 2;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.list-header span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table-scroll th,
+.table-scroll td {
+  padding: 0.65rem 0.4rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.table-scroll th {
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.complete-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: none;
+  background: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.complete-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 900px) {
+  .notes {
+    grid-column: 1 / -1;
+  }
+}
