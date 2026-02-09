@@ -8,6 +8,7 @@ export interface TravelTrip {
   carType: string
   distanceKm: number
   ratePerKm: number
+  advancePayment: number
   startedAt: string
   endedAt: string
   status: TravelStatus
@@ -20,6 +21,7 @@ export interface UpcomingTrip {
   carType: string
   distanceKm: number
   ratePerKm: number
+  advancePayment: number
   pickupAt: string
   notes?: string
 }
@@ -40,7 +42,11 @@ export function loadHistory(): TravelTrip[] {
   const raw = window.localStorage.getItem(HISTORY_KEY)
   if (!raw) return historySeed
   try {
-    return JSON.parse(raw) as TravelTrip[]
+    const parsed = JSON.parse(raw) as TravelTrip[]
+    return parsed.map((trip) => ({
+      ...trip,
+      advancePayment: Number(trip.advancePayment) || 0,
+    }))
   } catch {
     return historySeed
   }
@@ -56,7 +62,11 @@ export function loadUpcomingTrips(): UpcomingTrip[] {
   const raw = window.localStorage.getItem(UPCOMING_KEY)
   if (!raw) return upcomingSeed
   try {
-    return JSON.parse(raw) as UpcomingTrip[]
+    const parsed = JSON.parse(raw) as UpcomingTrip[]
+    return parsed.map((trip) => ({
+      ...trip,
+      advancePayment: Number(trip.advancePayment) || 0,
+    }))
   } catch {
     return upcomingSeed
   }

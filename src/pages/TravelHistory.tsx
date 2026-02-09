@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { calculateFare, loadHistory, type TravelTrip } from '../data/travel'
+import { downloadTripReceiptPdf } from '../utils/receiptPdf'
 import './TravelHistory.css'
 
 const rupeeFormatter = new Intl.NumberFormat('en-IN', {
@@ -55,9 +56,12 @@ function TravelHistory() {
               <th>Car Type</th>
               <th>Distance</th>
               <th>Total Fare</th>
+              <th>Advance</th>
+              <th>Balance</th>
               <th>Status</th>
               <th>Start</th>
               <th>End</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -73,9 +77,28 @@ function TravelHistory() {
                     calculateFare(trip.distanceKm, trip.ratePerKm),
                   )}
                 </td>
+                <td>{formatCurrency(trip.advancePayment)}</td>
+                <td>
+                  {formatCurrency(
+                    Math.max(
+                      calculateFare(trip.distanceKm, trip.ratePerKm) -
+                        trip.advancePayment,
+                      0,
+                    ),
+                  )}
+                </td>
                 <td className={`status ${trip.status}`}>{trip.status}</td>
                 <td>{new Date(trip.startedAt).toLocaleString()}</td>
                 <td>{new Date(trip.endedAt).toLocaleString()}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="receipt-btn"
+                    onClick={() => downloadTripReceiptPdf(trip)}
+                  >
+                    Download Receipt
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

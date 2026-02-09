@@ -16,6 +16,7 @@ const emptyForm = {
   carType: '',
   distanceKm: '',
   ratePerKm: '',
+  advancePayment: '',
   pickupAt: '',
   notes: '',
 }
@@ -53,16 +54,29 @@ function UpcomingTravel() {
     return calculateFare(distance, rate)
   }, [form.distanceKm, form.ratePerKm])
 
+  const calculatedBalance = useMemo(() => {
+    const advance = Number(form.advancePayment) || 0
+    return Math.max(calculatedFare - advance, 0)
+  }, [calculatedFare, form.advancePayment])
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const distanceKm = Number(form.distanceKm)
+    const ratePerKm = Number(form.ratePerKm)
+    const totalFare = calculateFare(distanceKm, ratePerKm)
+    const advancePayment = Math.min(
+      Math.max(Number(form.advancePayment) || 0, 0),
+      totalFare,
+    )
 
     const nextTrip: UpcomingTrip = {
       id: `up-${Date.now()}`,
       customerName: form.customerName.trim(),
       driverName: form.driverName.trim(),
       carType: form.carType.trim(),
-      distanceKm: Number(form.distanceKm),
-      ratePerKm: Number(form.ratePerKm),
+      distanceKm,
+      ratePerKm,
+      advancePayment,
       pickupAt: form.pickupAt,
       notes: form.notes.trim() || undefined,
     }
@@ -83,6 +97,7 @@ function UpcomingTravel() {
       carType: trip.carType,
       distanceKm: trip.distanceKm,
       ratePerKm: trip.ratePerKm,
+      advancePayment: trip.advancePayment,
       startedAt: trip.pickupAt,
       endedAt: new Date().toISOString(),
       status: 'completed',
@@ -168,6 +183,22 @@ function UpcomingTravel() {
             <input value={formatCurrency(calculatedFare)} readOnly />
           </label>
           <label>
+            Advance payment (Rs)
+            <input
+              name="advancePayment"
+              type="number"
+              min="0"
+              step="1"
+              value={form.advancePayment}
+              onChange={handleChange}
+              placeholder="0"
+            />
+          </label>
+          <label>
+            Balance due (auto)
+            <input value={formatCurrency(calculatedBalance)} readOnly />
+          </label>
+          <label>
             Pickup time
             <input
               name="pickupAt"
@@ -206,6 +237,8 @@ function UpcomingTravel() {
                   <th>Distance</th>
                   <th>Rate</th>
                   <th>Total fare</th>
+                  <th>Advance</th>
+                  <th>Balance</th>
                   <th>Pickup time</th>
                   <th>Notes</th>
                   <th>Action</th>
@@ -222,6 +255,16 @@ function UpcomingTravel() {
                     <td>
                       {formatCurrency(
                         calculateFare(trip.distanceKm, trip.ratePerKm),
+                      )}
+                    </td>
+                    <td>{formatCurrency(trip.advancePayment)}</td>
+                    <td>
+                      {formatCurrency(
+                        Math.max(
+                          calculateFare(trip.distanceKm, trip.ratePerKm) -
+                            trip.advancePayment,
+                          0,
+                        ),
                       )}
                     </td>
                     <td>{new Date(trip.pickupAt).toLocaleString()}</td>
